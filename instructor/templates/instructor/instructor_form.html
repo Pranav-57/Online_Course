@@ -1,0 +1,41 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/addcourse.css' %}">
+    <link rel="stylesheet" href="{% static 'css/instructor_home_page.css' %}">
+{% endblock CustomStyles %}
+{% block Content %}
+    <div class="container my-4 py-3">
+        <h2 class="fw-bold text_orange mb-4 pb-3">Share your knowledge</h2>
+        <p class="fs-5">Code Yourself courses are video-based experiences that give students the chance to learn actionable skills. Whether you have experience teaching, or it’s your first time, we’ll help you package your knowledge into an online course that improves student lives.</p>
+        <h5 class="fw-bold text_red">Once you apply for instructor, we accept or reject your application. After accepting your application, you can start teaching on Code Yourself.</h5>
+        {% if verify.status == "Pending" %}
+            <h3 class="text_orange fw-bold mt-5">You have already apply to become instructor at Code Yourself. Your application to become instructor is pending.</h3>
+        {% else %}
+            <form action="" method="POST" enctype="multipart/form-data" class="px-2 px-md-5">
+                {% csrf_token %}
+                <div class="row mt-5">
+                    <div class="col-12 col-lg-6 px-4">
+                        <label class="fs-5 w-100">1. What kind of knowledge or degree you have ?</label>
+                        <input required type="text" name="knowledge" class="mt-2 mb-4 w-100">
+                        <label class="fs-5 w-100">2. How much of a video “pro” are you ?</label>
+                        <input required type="text" name="video_expert" class="mt-2 mb-4 w-100">
+                        <label class="fs-5 w-100">3. Share your experience of teaching ?</label>
+                        <input required type="text" name="experience" class="mt-2 mb-4 w-100">
+                    </div>
+                    <div class="col-12 col-lg-6 px-4">
+                        <label class="fs-5 w-100">4. Your Role ?</label>
+                        <input required type="text" name="role" class="mt-2 mb-4 w-100">
+                        <label class="fs-5 w-100">5. About Yourself ?</label>
+                        <textarea required name="about" class="w-100 mt-2 mb-4" rows="5"></textarea>
+                        <label class="fs-5 w-100">6. Add your profile image.</label>
+                        <input required type="file" name="image" class="mt-2 mb-4 w-100">
+                        <button type="submit" class="d-block mt-2">Apply</button>
+                    </div>
+                </div>
+            </form>            
+        {% endif %}
+    </div>
+{% endblock Content %}

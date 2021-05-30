@@ -1,0 +1,101 @@
+{% extends 'course/base.html' %}
+{% load product %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/courses.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+
+<div class="container-fluid courses_bg text-white">
+    <h1 class="fw-bold">Cart</h1>
+    <div class="text-white">
+        <a href="{% url 'home' %}" class="text-white fw-bold fs-5">Home</a>
+        <span class="fw-bold mx-2 fs-5">
+            <i class="fas fa-caret-right"></i>
+        </span>
+        <span class="fw-bold fs-5" style="color: rgba(243, 243, 243, 0.726);">Cart</span>
+    </div>
+</div>
+
+{% if carts %}
+
+<div class="container px-5 pt-5 text-center">
+    <h2 class="text-center mb-5 fw-bold">Cart</h2>
+    <div class="row my-4">
+        {% for cart in carts %}
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="course_card py-2">
+                    <div class="card_img">
+                        <img src="{{cart.course.image.url}}" alt="Course Image">
+                        {% if cart.course.discount %}
+                            <div class="discount">
+                                {% if cart.course.discount == 100 %}
+                                    Free
+                                {% else %}
+                                    {{cart.course.discount}}% off
+                                {% endif %}
+                            </div>  
+                        {% endif %}
+                        <div class="buttons">
+                            <a href="
+                            {% if course.instructor == request.user %}
+                                {% url 'course_detail' cart.course.slug %}
+                            {% else %}
+                                {% url 'course' cart.course.slug %}
+                            {% endif %}"><i class="far fa-eye"></i></a>
+                            <a href="
+                            {% if course.instructor == request.user %}
+                                {% url 'course_detail' cart.course.slug %}
+                            {% else %}
+                                {% url 'checkout' cart.course.slug %}
+                            {% endif %}"><i class="fas fa-shopping-basket"></i></a>
+                            <a class="remove" cid={{cart.course.id}} href="
+                            {% if course.instructor == request.user %}
+                                {% url 'course_detail' cart.course.slug %}
+                            {% else %}
+                                {% url 'remove_from_cart' cart.course.slug %}
+                            {% endif %}
+                            "><i class="fas fa-trash"></i></a>
+                        </div>
+                        <div class="course_info d-flex justify-content-between">
+                            <h6 class="fw-bold fs-4 text-white"><span class="d-inline-block">
+                                {% selling_price cart.course.price cart.course.discount as sell_price %} {{ sell_price|rupee }}</span>
+                                
+                                {% if cart.course.discount %}
+                                    <span class="mx-1 d-inline-block fs-6">
+                                        <del>{{cart.course.price|rupee}}</del>
+                                    </span>
+                                {% endif %}
+                            </h6>
+                            <h6 class="fw-bold text-white">(5 review)</h6>
+                        </div>
+                    </div>
+                    <div class="card_content text-center py-3">
+                        <h5 class="fw-bold">{{cart.course.name}}</h5> 
+                        <p class="fw-bold text-secondary mb-2">{{cart.course.courses}}</p>
+                        <h6 class="fw-bold">{{cart.course.students}} Students enrolled</h6>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+
+<div class="d-flex justify-content-center align-items-center flex-column" style="height: 90vh;">
+    <h1 class="fw-bold text-center text_red mb-5">NOTHING IN CART</h1>
+    <img src="https://images.pexels.com/photos/264547/pexels-photo-264547.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="270" height="300" class="mb-4 pb-1" alt="">
+    <h5 class="fw-bold mb-2 mx-3">Your cart is empty. Keep shopping to find a course!</h5>
+    <a href="{% url 'home'%}" class="button">KEEP SHOPPING</a>
+</div>
+
+{% endif %}
+{% endblock Content %}
+
+{% block CustomScript %}
+    <script></script>
+{% endblock CustomScript %}

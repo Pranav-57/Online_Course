@@ -1,0 +1,50 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% load product %}
+{% load course %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/check_out.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+        <div class="container my-5">
+            <h2 class="fw-bold text_orange">{{course.name}}</h2>
+            <h5 class="mt-3 mb-0 fw-bold">Instructor :- {{course.instructor}}</h5>
+            <div class="flex">
+                <p class="fw-bold fs-4">Price :- 
+                    <span class="text_success">{% selling_price course.price course.discount as sell_price %} {{ sell_price|rupee }}</span>
+                    <span class="text_red">
+                        <del>({{ course.price|rupee }})</del>
+                    </span>
+                </p>
+            </div>
+            <a href="?action=create_payment" class="button">Check Out</a>
+        </div>
+{% endblock Content %}
+
+{% block CustomScript %}
+
+{% if order %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_HFL6SSsa2A9Rb0",
+            "name": "Code Yourself",
+            "description": "Payment for {{course.name}}",
+            "image": "https://images.pexels.com/photos/207580/pexels-photo-207580.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "order_id": "{{order.id}}",
+            "callback_url":'http://127.0.0.1:8000/payment/verify_payment/',
+            "prefill": {
+                "name": "{{user.name}}",
+                "email": "{{user.email}}"
+            },
+            "theme": {
+                "color": "#FFA500"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    </script>
+{% endif %}
+{% endblock CustomScript %}

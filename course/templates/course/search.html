@@ -1,0 +1,51 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div class="container my-5">
+        {% if courses %}
+            <h3 class="fw-bold mb-4">{{courses|length}} results for <span class="text_orange">"{{search}}"</span></h3>
+            {% for course in courses %}
+                <div class="row align-items-center py-3 search">
+                    <div class="col-4 col-md-3 d-none d-md-flex">
+                        <img class="w-100 border rounded p-2" style="height: 23vh;" src="{{course.image.url}}" alt="Course">
+                    </div>
+                    <div class="col-12 col-md-9 bg_red">
+                        <div class="d-flex">
+                            <div>
+                                <h4 class="fw-bold">{{course.name}}</h4>
+                                <h5 class="fw-bold text-secondary">{{course.instructor}}</h5>
+                                <p class="text-secondary fw-bold mb-1"><span class="text_orange">{{course.ratings}}</span> ({{course.reviews}})</p>
+                                <div class="d-flex">
+                                    <!-- <li>
+                                        {% with name=0 %}
+                                            {% for video in course.videos.all %}
+                                                {{video.duration|add:name}}
+                                            {% endfor %}
+                                        {% endwith %}
+                                    </li> -->
+                                    <p class="fw-bold feature mb-0">{{course.videos.all|length}} lectures</p>
+                                    <p class="fw-bold feature mb-0">{{course.level}}</p>
+                                    <p class="fw-bold feature mb-0">{{course.language}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            {% endfor %}
+        {% else %}
+            <h3 class="fw-bold">Sorry, we couldn't find any results for 
+                <span class="text_orange">"{{search}}"</span>
+            </h3>
+            <ul class="fw-bold fs-5 px-3 mt-4">
+                <li>Make sure all words are spelled correctly.</li>
+                <li>Try different search terms.</li>
+                <li>Try more general search terms.</li>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock Content %}

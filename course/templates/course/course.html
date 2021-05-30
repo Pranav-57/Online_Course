@@ -1,0 +1,296 @@
+{% extends 'course/base.html' %}
+{% load product %}
+{% load course %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">  
+{% endblock CustomStyles %}
+
+{% block Content %}
+
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12 col-xl-8">
+                <!-- <div class="youtube"> -->
+                    <video class="youtube w-100" controls>
+                        <source src="{{video_id.url}}" type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                    {{video_id.video_id}}
+                    <!-- <button id="video_button"><i class="fas fa-play"></i></button>
+                    <div class="video_content">
+                        <div class="progess_filled"></div>
+                        <div class="d-flex mt-1 justify-content-between">
+                            <div class="left">
+                                <span id="second">0</span> : 
+                                <span id="millisecond">0</span>
+                            </div>
+                            <div class="right">
+                                <button data-skip="-5"><i class="fas fa-backward"></i></button>
+                                <button data-skip="5" id="next"><i class="fas fa-forward"></i></button>
+                            </div>
+                        </div>
+                    </div> -->
+                <!-- </div> -->
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="videos border">
+                    <ul class="p-0 m-0">
+                       {% for video in videos %}
+                        <li class="{% if user_course or video.is_preview %} pass {% else %} disabled {% endif %} {% if video_id == video.video_id %} active fw-bold {% endif %} ">
+                            <div class="d-flex my-1">
+                                <p>{{video.serial_number}}.</p>
+                                <div class="px-3 w-100">
+                                    <a href="?video_id={{video.video_id}}" class="text-dark">{{video.title}}</a>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-0 text-lowercase fs-6"> 
+                                            <i class="fas fa-play-circle text-secondary"></i>  {{video.duration}} mins</p> 
+                                        <!-- {% if video.resource %}
+                                            <a href="{{video.resource.url}}" class="text-end border text-secondary px-2">
+                                                <i class="fas fa-folder-open"></i> Resource</a>
+                                        {% endif %} -->
+                                        {% if not user_course %}
+                                            {% if video.is_preview %}
+                                                <p style="color: chartreuse; margin-bottom: 0%;">Preview</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                       {% endfor %}
+                    </ul>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-2 mb-5">
+        <div class="mx-1">
+            <div class="d-flex flex-wrap">
+                <!-- before buy -->
+                {% if user_course %}
+                    <h5 class="mx-3 my-3"><a class="text-dark fw-bold" href="{% url 'course' course.slug %}">Overview</a></h5>
+                    <h5 class="mx-3 my-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'description' %}">Description</a></h5>
+                    <h5 class="mx-3 my-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'instructor' %}">Instuctor</a></h5> 
+                    <h5 class="mx-3 my-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'rating' %}">Review & Rating</a></h5>
+                    <h5 class="mx-3 my-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'question' %}">Question & Answer</a></h5>
+                {% else %}
+                    <h5 class="mx-3 mb-3"><a class="text-dark fw-bold" href="{% url 'course' course.slug %}">Overview</a></h5>
+                    <h5 class="mx-3 mb-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'learning' %}">Learning</a></h5>
+                    <h5 class="mx-3 mb-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'instructor' %}">Instructor</a></h5>
+                    <h5 class="mx-3 mb-3"><a class="text-dark fw-bold" href="{% url 'extra' course.slug 'rating' %}">Reviews</a></h5>
+                {% endif %}
+                <!-- after buy -->
+                <!--  -->
+            </div>
+            <hr style="color: black;" class="p-0 m-0">
+            
+            <div class="mx-3">
+                <div class="row pt-4 mt-1">
+                    <div class="col col-md col-lg px-0">
+                        {% if "learning"|check:extra %}
+                        <div class="mx-3">
+                            {% if prerequisites %}
+                                <h3 class="fw-bold">Requirements</h3>
+                                <div class="row mb-4 py-2">
+                                    {% for prerequisite in prerequisites %}
+                                        <div class="col-6">
+                                            <h5 class="py-2"><li>{{prerequisite.description}}</li></h5>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <h3 class="fw-bold">No prerequisite knowledge required.</h3>
+                            {% endif %}
+                            {% if learning %}
+                                <h3 class="fw-bold">What you'll learn</h3>
+                                <div class="row mb-4 mt-2 py-2">
+                                    {% for learn in learning %}
+                                        <div class="col-6">
+                                            <h5 class="py-2">
+                                                <i class="far fa-check-circle text-secondary"></i> {{learn.description}}
+                                            </h5>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% elif "instructor"|check:extra %}
+                            <h3 class="fw-bold">Instructors</h3>
+                            <div class="instructor p-2">
+                                <div class="my-2 d-flex align-items-center">
+                                    <img src="{{instructor.user_image.url}}" alt="">
+                                    <div class="mx-3">
+                                        <h3 class="fw-bold text-secondary">{{instructor.name}}</h3>
+                                        <h5>{{instructor.position}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h5 class="course_desc py-0">
+                                        {{instructor.description}}.
+                                    </h5>
+                                </div>
+                            </div>
+                        {% elif "rating"|check:extra %}
+                            <div class="w-100">
+                                <div class="conatiner">
+                                    <div class="row">
+                                        <div class="col col-md col-xl mx-2 mb-4">
+                                            <h3 class="fw-bold mb-4 mt-4 mt-md-0">Reviews</h3>
+                                            <div class="review px-3">
+                                                {% if reviews %}
+                                                    {% for review in reviews  %}
+                                                    <div class="mt-3 mb-4 review_inner">
+                                                        <h5 class="fw-bold mb-0 d-inline-block">Student Name :- {{review.user}} ({{review.date|date:"d/m/Y"}})</h5>
+                                                        <span class="float-end fw-bold align-middle">Rating :- {{review.rating}}</span>
+                                                        <p class="mt-2">{{review.review}}</p>
+                                                    </div>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {% if verify %}
+                                                        <h1 class="fw-bold">Be the first to review</h1>
+                                                    {% else %}
+                                                        <h1 class="fw-bold">No Review Yet</h1>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% if user_course and not verify %}
+                                            <div class="col-12 col-md-4 col-xl-4 rating">
+                                                <h3 class="fw-bold mb-4 mt-4 mt-md-0">Rating</h3>
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <label class="fw-bold fs-5" for="rating">Rating :-</label>
+                                                    <input type="number" name="rating" id="rating" min="1" max="5" step="1">
+                                                    <label class="d-block fw-bold fs-5" for="review">Review :-</label>
+                                                    <textarea rows="8" style="width: 100%;" name="review" id="review"></textarea>
+                                                    <input type="submit" class="button px-5" value="Post">
+                                                </form>
+                                            </div>
+                                        {% endif %}  
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif "description"|check:extra %}  
+                            <h3 class="fw-bold mb-0">Video Description</h3>
+                            <h5 class="py-4">
+                                {% for video in videos %}
+                                    {% if video.video_id == video_id %}
+                                        {{video.description}}
+                                    {% endif %}
+                                {% endfor %}
+                            </h5>
+                        {% elif "question"|check:extra %}
+                        <div class="w-100">
+                            <div class="conatiner">
+                                <div class="row">
+                                    <div class="col col-md col-xl mx-2 mb-4">
+                                        <h3 class="fw-bold mb-4 mt-4 mt-md-0">All questions related to this video</h3>
+                                        {% if question %}
+                                        <div class="border rounded">
+                                            {% for ques in question %}
+                                            <div class="p-3 under_border">
+                                                <form action="" method="post" autocomplete="off">
+                                                    {% csrf_token %}
+                                                    <h4 class="fw-bold text_orange text-capitalize">Q. {{ques.question}} ?</h4>
+                                                    {% for ans in ques.answer_set.all %}
+                                                        <h5 class="fw-bold mx-4">A. {{ans.answer}} <span class="text_light_grey text-capitalize">({{ans.user}})</span></h5>
+                                                    {% endfor %}
+                                                    {% if request.user.is_authenticated %}
+                                                    <div class="mx-4">
+                                                        <input type="hidden" name="add_answer" value="add_answer">
+                                                        <input type="hidden" name="question" value="{{ques.id}}">
+                                                        <input type="text" class="answer mb-3" name="answer">
+                                                        <input type="submit" class="button" value="Add Answer">
+                                                    </div>
+                                                    {% endif %}
+                                                </form>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                            <h2 class="fw-bold">No question on this video yet.</h2>
+                                        {% endif %}
+                                    </div>
+                                    {% if user_course %}
+                                        <div class="col-12 col-md-4 col-xl-4 rating">
+                                            <h3 class="fw-bold mb-4 mt-4 mt-md-0">Ask a new question</h3>         
+                                            <form action="" method="post" autocomplete="off">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="add_question" value="add_question">
+                                                <input type="text" class="answer mb-3" name="question">
+                                                <input type="submit" class="button" value="Add Question">
+                                            </form>
+                                        </div>
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                            <h3 class="fw-bold mb-0">Course Description</h3>
+                            <h5 class="course_desc py-0">
+                                {{course.course_description}}
+                            </h5>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-4 px-2 px-md-5 pt-5 pb-0 pt-lg-0 overview {% if 'rating'|check:extra or 'question'|check:extra %} d-none {% endif %}">
+                        <h4 class="fw-bold">Course Features</h4>
+                        <ul class="px-0 pt-1">
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-users"></i> Students</h5>
+                                <h5 class="m-0">{{course.students}} Students</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-users"></i> Avg. Rating</h5>
+                                <h5 class="m-0">{{course.ratings}} Rating</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-users"></i> No.of Reviews</h5>
+                                <h5 class="m-0">{{course.reviews}} Reviews</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-rupee-sign"></i> Price</h5>
+                                <h5 class="m-0">{% selling_price course.price course.discount as sell_price %} {{ sell_price|rupee }}</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-award"></i> Certificate</h5>
+                                <h5 class="m-0">{{course.certificate}}</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="far fa-calendar"></i> Last Updated</h5>
+                                <h5 class="m-0">{{course.updated_date|date:"d/m/Y"}}</h5>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="far fa-play-circle"></i> Videos</h5>
+                                <h5 class="m-0">{{length}} Videos</h5>
+                            </li>                           
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="far fa-clock"></i> Duration</h5>
+                                <h5 class="m-0">Approx {{duration|duration}} hr</h5>
+                            </li>                           
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-level-up-alt"></i> Skill Level</h5>
+                                <h5 class="m-0">{{course.level}}</h5>
+                            </li>                           
+                            <li class="d-flex justify-content-between py-3 feature_list">
+                                <h5 class="m-0"><i class="fas fa-language"></i> Language</h5>
+                                <h5 class="m-0">{{course.language}}</h5>
+                            </li>                           
+                            <li class="d-flex justify-content-between py-3">
+                                <h5 class="m-0"><i class="far fa-closed-captioning"></i> Caption</h5>
+                                <h5 class="m-0">{{course.caption}}</h5>
+                            </li>                       
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not user_course %}
+        <a href="{% url 'checkout' course.slug %}" class="buy_btn">buy</a>
+    {% endif %}
+{% endblock Content %}

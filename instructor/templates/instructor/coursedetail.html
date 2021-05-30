@@ -1,0 +1,46 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/course_details.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+
+    <div class="container-fluid">
+        <div class="row  h-100">
+            <div class="col-12 col-xl-4 p-3 p-lg-5 bg_light_grey">
+                <img src={{course.image.url}} class="course_image" alt="Course Image">
+                <div class="d-flex align-items-center justify-content-between mt-4 mb-3">
+                    <h4 class="fw-bold text_orange my-0 course_heading">{{course.name}}</h4>
+                    <a href="{% url 'edit_course' course.slug %}"><i class="fas fa-pen text-dark"></i></a>
+                </div>
+                <h5 class="fw-bold text-secondary mb-4">{{course.students}} Students Enroll, {{video}} Videos, {{course.ratings}} Rating, {{course.reviews}} Reviews</h5>
+                <p class="fs-5 fw-bold mb-0">Last Updated :- {{course.updated_date}}</p>
+                <p class="fs-5 fw-bold">Created At :- {{course.created_date}}</p>
+                <hr class="my-4">
+                <h5 class="fw-bold">Instructor</h5>
+                <div class="d-flex mt-3 align-items-center">
+                    <img src={{course.instructor.user_image.url}} class="instructor_image" alt="">
+                    <h4 class="fw-bold mx-4">{{course.instructor.name}}</h4>
+                </div>
+            </div>
+            <div class="col-12 col-xl-8 bg_grey py-5 px-0">
+                <a href="{% url 'add_video' course.slug %}" class="d-flex text-dark video_list px-3 px-lg-4">
+                    <h5 class="fw-bold" style="margin-right: 20px;">Add Video</h5>
+                </a>
+                {% for video in videos %}
+                    <a href="{% url 'edit_video' video.id %}" class="d-flex text-dark justify-content-between video_list px-3 px-lg-4">
+                        <h5 class="fw-bold" style="margin-right: 20px;">
+                            #{{video.serial_number}}. {{video.title}}
+                        </h5>
+                        {% if video.is_preview %}
+                            <h5 class="fw-bold text_success">Preview</h5>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock Content %}

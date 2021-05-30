@@ -1,0 +1,200 @@
+{% extends 'course/base.html' %}
+{% load product %}
+{% load course %}
+{% load static %}
+
+{% block CustomStyles %}
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div class="container-fluid d-flex align-items-center justify-content-center p-0 banner">
+        <form action="/search" method="get" class="d-flex">
+            <input type="search" placeholder="Search for course" name="search" id="">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    <div class="container-fluid slider_main my-5">
+        <h2 class="text-center mb-5 title">Course Categories</h2>
+        <button id="left">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button id="right">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        <div class="custom_container">
+            <div class="slider" id="slider">
+                {% for category in categories %}
+                    <div class="box">
+                        <a href="{% url 'courses' category.course_id %}"><h2>{{category.course_name}}</h2></a>
+                        <img src="{{category.course_image.url}}" alt="Instructor">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 px-3 pt-5 text-center">
+        <h2 class="text-center mb-5 title">Our Popular Course</h2>
+        <div class="row my-4">
+            {% for course in courses %}
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="course_card py-2">
+                        <div class="card_img">
+                            <img src="{{course.image.url}}" alt="Course Image">
+                            {% if course.discount %}
+                                <div class="discount">
+                                    {% if course.discount == 100 %}
+                                        Free
+                                    {% else %}
+                                        {{course.discount}}% off
+                                    {% endif %}
+                                </div>  
+                            {% endif %}
+                            <div class="buttons">
+                                <a href="
+                                {% if course.instructor == request.user %}
+                                    {% url 'course_detail' course.slug %}
+                                {% else %}
+                                    {% url 'course' course.slug %}
+                                {% endif %}"><i class="far fa-eye"></i></a>
+                                <a href="
+                                {% if course.instructor == request.user %}
+                                    {% url 'course_detail' course.slug %}
+                                {% else %}
+                                    {% url 'add_to_cart' course.slug %}
+                                {% endif %}"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="
+                                {% if course.instructor == request.user %}
+                                    {% url 'course_detail' course.slug %}
+                                {% else %}
+                                    {% url 'checkout' course.slug %}
+                                {% endif %}"><i class="fas fa-shopping-basket"></i></a>
+                            </div>
+                            <div class="course_info d-flex justify-content-between">
+                                <h6 class="fw-bold fs-4 text-white"><span class="d-inline-block">
+                                    {% selling_price course.price course.discount as sell_price %} {{ sell_price|rupee }}</span>
+                                    
+                                    {% if course.discount %}
+                                        <span class="mx-1 d-inline-block fs-6">
+                                            <del>{{course.price|rupee}}</del>
+                                        </span>
+                                    {% endif %}
+                                </h6>
+                                <h6 class="fw-bold text-white">({{course.reviews}} reviews)</h6>
+                            </div>
+                        </div>
+                        <div class="card_content text-center py-3">
+                            <h5 class="fw-bold">{{course.name}}</h5>
+                            <p class="fw-bold text-secondary mb-2">{{course.courses}}</p>
+                            <h6 class="fw-bold">{{course.students}} Students enrolled</h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'courses' %}" class="button" class="">View All</a>
+    </div>
+    
+    <div class="container-fluid bg_orange py-5 text-white">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">100 %</h1>
+                    <h4 class="fw-bold">Success Rate</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{all_course}}</h1>
+                    <h4 class="fw-bold">Courses</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{duration|duration}}</h1>
+                    <h4 class="fw-bold">Hours Video</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{all_video}}</h1>
+                    <h4 class="fw-bold">Videos</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <h2 class="text-center mb-5 title">Our Creative Team</h2>
+        <div class="row mx-2">
+            {% for one_user in user %}
+            <div class="col-12 col-md-6 col-xl-4 my-4 mx-auto" style="position: relative;">
+                <div class="cards">
+                    <div class="front">
+                        <img src="{{one_user.user_image.url}}" alt="Instructor">
+                    </div>
+                    <div class="back">
+                        <div class="back_content">
+                            <img src="{{one_user.user_image.url}}" alt="Instructor">
+                            <h3>{{one_user.name}}</h3>
+                            <h5>{{one_user.position}}</h5>
+                            <h4 class="user_desc">{{one_user.description}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock Content %}
+{% block CustomScript %}
+    <script>
+        var left = document.getElementById('left');
+        var right = document.getElementById('right');
+        var slider = document.getElementById('slider');
+        var user_desc = document.querySelectorAll('.user_desc');
+        
+
+        if(slider.scrollWidth <= slider.clientWidth){
+            left.style.display = 'none';
+            right.style.display = 'none';
+        }
+
+        left.addEventListener('click', () => {
+            if(slider.scrollLeft == 0){
+                slider.scrollLeft = slider.scrollWidth
+            }
+            slider.scrollBy(-300, 0);
+        })
+        right.addEventListener('click', () => {
+            if(slider.scrollWidth - slider.scrollLeft == slider.clientWidth){
+                slider.scrollLeft = 0
+            }
+            slider.scrollBy(300, 0);
+        })
+
+        setInterval(() => {
+            if(slider.scrollWidth - slider.scrollLeft == slider.clientWidth){
+                slider.scrollLeft = 0
+            }
+            slider.scrollBy(300, 0);
+        }, 10000)
+
+        for (let int = 0; int < user_desc.length; int++) {
+            const string = user_desc[int].innerText;
+            var string150 = string.substr(0, 150) 
+            user_desc[int].innerHTML = string150 + '  ....' 
+        }
+        // var string = user_desc.innerText
+        // var string150 = string.substr(0, 150) 
+        // user_desc.innerHTML = string150
+
+    </script>
+{% endblock CustomScript %}

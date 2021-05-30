@@ -1,0 +1,45 @@
+.profile_form{
+    margin: 0 150px;   
+}
+.profile_form>input, .profile_form>textarea{
+    width: 100%;
+    padding: 5px 15px;
+}
+#id_instructor, #user_image-clear_id, #id_user_image{
+    width: inherit;
+    margin: 0px;
+    padding: 0;
+}
+.profile_form>textarea::-webkit-scrollbar{
+    width: 10px;
+}
+.profile_form>textarea::-webkit-scrollbar-track{
+    background: rgb(223, 223, 223);
+}
+.profile_form>textarea::-webkit-scrollbar-thumb{
+    background: rgb(173, 173, 173);
+    border-radius: 50px;
+}
+.profile_form>button{
+    border: none;
+    background-color: rgb(165, 165, 165);
+    padding: 8px 60px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    outline: none!important;
+}
+
+@media (max-width: 991px){
+    .profile_form{
+        margin: 0 50px;
+    }
+}
+
+@media (max-width: 575px){
+    .profile_form{
+        margin: 0 10px;
+    }
+}

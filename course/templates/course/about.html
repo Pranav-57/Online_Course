@@ -1,0 +1,79 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+
+<div class="container-fluid courses_bg text-white">
+    <h1 class="fw-bold">About</h1>
+    <div class="text-white">
+        <a href="{% url 'home' %}" class="text-white fw-bold fs-5">Home</a>
+        <span class="fw-bold mx-2 fs-5">
+            <i class="fas fa-caret-right"></i>
+        </span>
+        <span class="fw-bold fs-5" style="color: rgba(243, 243, 243, 0.726); ">About</span>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 p-3">
+                <h2 class="fw-bold mb-4">About Code Yourself</h2>
+                <h5 class="text-secondary mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt maiores explicabo eos in aspernatur veniam iure animi.</h5>
+                <h5 class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt maiores explicabo eos in aspernatur veniam iure animi. Eveniet eius iure rerum, accusantium exercitationem quasi ut harum laborum molestiae eum temporibus.</h5>
+            </div>
+            <div class="col-12 col-lg-6 py-3 about_video">
+                <video class="w-100 h-100"  id="video">
+                    <source src="https://player.vimeo.com/external/399003581.sd.mp4?s=fc72be774e96d698bc136323c4d469214d44f487&profile_id=139&oauth2_token_id=57447761"type="video/mp4">
+                </video>
+                <button onclick="playVideo()"><i class="fas fa-play"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5 py-5 bg_orange">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <img class="rounded-circle mx-auto d-block" src="{% static 'images/Instructor.jpg' %}" alt="" width="130px" height="130px">
+                <div class="text-center">
+                    <img class="rounded-circle m-2" src="https://cdn.pixabay.com/photo/2019/08/28/10/27/mode-4436392__340.jpg" alt="" width="130px" height="130px">
+                    <img class="rounded-circle m-2" src="https://cdn.pixabay.com/photo/2020/05/11/10/36/male-model-5157492__340.jpg" alt="" width="130px" height="130px">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center pt-5 pt-md-0">
+                <h1 class="display-4 fw-bold text-white">
+                    <u class="text-center">Our Creative Team</u>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid my-5 text-center">
+    <h1 class="text-center fw-bold">Ambernath, Maharashtra</h1>
+    <h3 style="color: orange;" class="fw-bold">+(91) 7935272739</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60286.16425181567!2d73.16710499299515!3d19.200212984346777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7938359bbd3a5%3A0x185ca7bca88f0c9!2sAmbernath%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1609680348576!5m2!1sen!2sin" width="70%" height="400" frameborder="0" class="mt-5" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
+
+{% endblock Content %}
+{% block CustomScript %}
+    <script>
+    
+        function playVideo() {
+            if(document.getElementById('video').paused){
+                document.getElementById('video').play()
+            }
+            else{
+                document.getElementById('video').pause()
+            }
+        }
+
+    </script>
+{% endblock CustomScript %}

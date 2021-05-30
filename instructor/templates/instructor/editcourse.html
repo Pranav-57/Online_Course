@@ -1,0 +1,46 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/addcourse.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div class="container my-4 py-3">
+        <h4 class="fw-bold text_orange mb-4">Edit {{course}} Course</h4>
+        <form action="" method="POST" novalidate class="mt-2" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ prerequisites.management_form }}
+            {{ learnings.management_form }}
+            {{ tags.management_form }}
+            
+            {% for fm in form %}
+                <div class="d-block fields py-3 id_{{fm.name}}">
+                    <label for=id_{{fm.name}} class=id_{{fm.name}}>{{fm.label_tag|striptags}}- </label>{{fm}}
+                </div>
+            {% endfor %}
+            
+            <h4 class="fw-bold text_orange mt-5">Course Prerequisites.</h4>
+            {% for prerequisite in prerequisites %}
+            <div class="d-block fields py-3 id_{{prerequisite.name}}">
+                <label for=id_{{prerequisite.name}} class=id_{{prerequisite.name}}>{{prerequisite.label_tag|striptags}}- </label>{{prerequisite}}
+            </div>
+            {% endfor %}
+
+            <h4 class="fw-bold text_orange mt-5">Course Learnings.</h4>
+            {% for learning in learnings %}
+            <div class="d-block fields py-3 id_{{learning.name}}">
+                <label for=id_{{learning.name}} class=id_{{learning.name}}>{{learning.label_tag|striptags}}- </label>{{learning}}
+            </div>
+            {% endfor %}
+
+            <h4 class="fw-bold text_orange mt-5">Course Tags.</h4>
+            {% for tag in tags %}
+                <div class="d-block fields py-3 id_{{tag.name}}">
+                    <label for=id_{{tag.name}} class=id_{{tag.name}}>{{tag.label_tag|striptags}}- </label>{{tag}}
+                </div>
+            {% endfor %}
+            <button type="submit" class="d-block mt-4">Update Course</button>
+        </form>
+    </div>
+{% endblock Content %}

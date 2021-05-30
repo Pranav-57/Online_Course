@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+.nav_brand>h3{
+    text-transform: capitalize;
+    font-family: 'Playball'!important;
+    font-weight: bold;
+}
+.login{
+    width: 100%;
+    height: 100vh;
+    /* position: fixed;
+    left: 0;
+    top: 0; */
+    display: flex;
+    overflow: hidden;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/4145197/pexels-photo-4145197.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.login_box{
+    width: 80vw;
+    height: 90vh;
+    background: white;
+    position: relative;
+}
+#home{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 22px;
+    color: black;
+}
+.login img{
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+}
+.login .login_box form input{
+    border: none;
+    border-bottom: 2px solid rgb(200, 200, 200);
+    outline: none;
+    font-size: 18px;
+    letter-spacing: 1px;
+    width: 270px;
+}
+form{
+    position: relative;
+}
+.show_password{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+.login .login_box form button{
+    border: none;
+    background-color: rgb(165, 165, 165);
+    padding: 8px 60px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    outline: none!important;
+}
+.error, .success{
+    position: absolute;
+    top: 0%;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(255, 0, 0);
+}
+.success{
+    background-color: chartreuse;
+}
+
+@media (max-width: 400px){
+    .login_box{
+        width: 90vw;
+    }
+    .login .login_box form input{
+        width: 200px;
+    }
+}

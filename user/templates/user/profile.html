@@ -1,0 +1,25 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">  
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div class="container my-5 border rounded">
+        <div class="my-4">
+            <h2 class="text-center fw-bold mb-0">Public Profile</h2>
+            <p class="text-center fs-5">Add information about yourself</p>
+        </div>
+        <hr class="mb-0">
+        <form action="" method="post" class="my-5 profile_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for fm in form %}
+                <label class="d-block text-secondary fw-bold mt-4 mb-1">{{fm.label_tag|striptags}}- </label>
+                {{fm}}
+            {% endfor %}
+            <button type="submit" class="mt-4 d-block mx-auto">Save Change</button>
+            <a href="{% url 'changepassword' %}" class="my-2 fw-bold">Change Password</a>
+        </form>
+    </div>
+{% endblock Content %}

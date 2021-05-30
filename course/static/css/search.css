@@ -1,0 +1,28 @@
+.search{
+    position: relative;
+}
+.search::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: lightgray;
+}
+.search:last-child::after{
+    height: 0;
+}
+.feature{
+    position: relative;
+    margin-right: 15px;
+}
+.feature::after{
+    content: "•";
+    position: absolute;
+    top: 1px;
+    right: -10px;
+}
+.feature:last-child::after{
+    content: "";
+}

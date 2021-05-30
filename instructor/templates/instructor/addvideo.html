@@ -1,0 +1,21 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/addcourse.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div class="container my-4 py-3">
+        <h4 class="fw-bold text_orange mb-4">Add Video</h4>
+        <form action="" method="POST" novalidate class="mt-2" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for fm in form %}
+                <div class="d-block fields py-3 id_{{fm.name}}">
+                    <label for=id_{{fm.name}} class=id_{{fm.name}}>{{fm.label_tag|striptags}}- </label>{{fm}}
+                </div>
+            {% endfor %}
+            <button type="submit" class="d-block mt-4">Add Video</button>
+        </form>
+    </div>
+{% endblock Content %}

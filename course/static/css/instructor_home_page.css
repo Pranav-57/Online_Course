@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+tr{
+    border-bottom: 1px solid lightgray;
+}
+th{
+    font-size: 23px;
+}
+tr{
+    font-size: 19px;
+    font-weight: bold;
+}
+td, th{
+    padding: 13px 0;
+}
+.teaching_banner{
+    width: 100%;
+    height: 84vh;
+    object-fit: fill;
+}
+.our_success{
+    position: relative;
+    margin: 20px 0;
+}
+.our_success .success_inner::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    height: 100%;
+    background-color: white;
+}
+.our_success:last-child .success_inner::after{
+    width: 0;
+}
+form input{
+    border: none;
+    border-bottom: 2px solid lightgray;
+    border-radius: 0;
+}
+form textarea{
+    border: 2px solid lightgray;
+}
+
+@media (max-width: 1200px){
+    .our_success:nth-child(2) .success_inner::after{
+        width: 0;
+    }
+}
+
+@media (max-width: 767px){
+    .our_success .success_inner::after, .our_success:nth-child(2) .success_inner::after{
+        width: 50%;
+        height: 1px;
+        transform: translate(-50%);
+        bottom: -10px;
+    }
+}

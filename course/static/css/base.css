@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+a{
+    text-decoration: none!important;
+    cursor: pointer!important;
+}
+::-webkit-scrollbar{
+    width: 10px;
+    height: 0;
+}
+::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 30px;
+}
+::-webkit-scrollbar-track{
+    background-color: orange;
+    border-radius: 30px;
+}
+.message{
+    display: inline-block;
+    cursor: pointer;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: white;
+    padding: 10px 30px 15px;
+    z-index: 100;
+    margin: 10px 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+    transition: 2s ease all;
+}
+.move_right{
+    right: -2600px;
+}
+.underline{
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    left: 0;
+}
+
+/* ******** header ********* */
+
+.text_orange{
+    color: orange;
+}
+.text_success{
+    color: chartreuse;
+}
+.text_red, .text_error{
+    color: red;
+}
+.text_info{
+    color: rgb(255, 238, 0);
+}
+.bg_error{
+    background-color: red;
+}
+.bg_success{
+    background-color: chartreuse;
+}
+.bg_info{
+    background-color: rgb(255, 238, 0);
+}
+.bg_orange{
+    background-color: rgb(255, 166, 0);
+}
+.bg_black{
+    background-color: black;
+}
+.bg_light_grey{
+    background-color: rgba(245, 245, 245, 0.993);
+}
+.bg_grey{
+    background-color: rgb(238, 238, 238);
+}
+.icons{
+    border: 1px solid white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ******** Navbar ********* */
+
+.nav_sticky{
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+.nav_brand>h3>a{
+    text-transform: capitalize;
+    font-family: 'Playball'!important;
+    font-weight: bold;
+    color: black;
+}
+.nav_content>ul{
+    list-style: none;
+}
+.nav_content>ul>a{
+    display: inline-block!important;
+}
+.nav_content>ul>a>li{
+    display: inline-block!important;    
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 10px;
+    cursor: pointer;
+    color: black;
+    position: relative;
+}
+.nav_content>ul>a>li::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0px;
+    height: 3px;
+    background-color: orange;
+    transform: translateX(-50%);
+    transition: .5s ease all;
+}
+.nav_content>ul>a>li:hover::after{
+    width: 100%;
+}
+.nav_content>ul>li>button{
+    background-color: orange;
+    color: white;
+    padding: 2px 30px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+}
+.box_shadow{
+    -webkit-box-shadow: 0 8px 6px -6px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 8px 6px -6px rgba(0,0,0,.2);
+    box-shadow: 0 8px 6px -6px rgba(0,0,0,.2);
+}
+
+/* ********* footer **********  */
+
+footer ul li{
+    list-style: none;
+    font-size: 21px;
+    margin: 10px 0;
+    position: relative;
+}
+footer ul li::before{
+    content: '■';
+    color: orange;
+    padding-right: 20px;
+}
+footer .contact_icons{
+    margin-right: 20px;
+    margin-top: 5px;
+}
+footer .contact_detail>h5{
+    font-size: 19px;
+}
+/* .error, .success, .info{
+    position: absolute;
+    top: 0%;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(255, 0, 0);
+    float: right;
+} */
+/* .success{
+    background-color: rgb(163, 255, 71);
+}
+.info{
+    background-color: rgb(255, 238, 0);
+} */
+
+@media (max-width: 991px){
+    .toggle_content{
+        opacity: 0;
+        display: none;
+    }
+}

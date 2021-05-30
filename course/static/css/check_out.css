@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.create_order{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.course_desc{
+    text-align: justify; 
+    white-space: pre-line;
+}
+.button{
+    background-color: orange;
+    color: white!important;
+    border: none;
+    font-weight: bold;
+    padding: 8px 25px;
+    font-size: 18px;
+}

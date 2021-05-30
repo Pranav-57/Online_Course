@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block CustomStyles %}{% endblock CustomStyles %}
+    <title>{% block Title %}Code Yourself{% endblock Title %}</title>
+</head>
+<body> 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                <h5 class="text_{{message.tags}} fw-bold w-100 mb-0">{{message}}</h5>
+                <div class="underline bg_{{message.tags}}"></div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block Header %}
+        <div class="container-fluid d-none py-1 d-lg-block bg_orange">
+            <div class="container text-white">
+                <div class="row">
+                    <div class="col-8 d-flex align-items-center">
+                        <h5 class="fw-bold my-0 mx-2"><i class="px-2 far fa-envelope"></i>    codeyourself@gmail.com</h5> 
+                        <h5 class="fw-bold my-0 mx-2"><i class="px-2 fas fa-phone-alt"></i> +(91) 7935272739</h5> 
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="icons mx-1 fab fa-instagram"></i>
+                        <i class="icons mx-1 fab fa-facebook-f"></i>
+                        <i class="icons mx-1 fab fa-linkedin-in"></i>
+                        <i class="icons mx-1 fab fa-youtube"></i>
+                        <i class="icons mx-1 fab fa-google-plus-g"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock Header %}
+    
+    {% block Navbar %}
+        <div class="container-fluid px-0 nav_sticky bg-white box_shadow">
+            <div class="container px-4 py-3">
+                <div class="row">
+                    <div class="col-12 col-lg-3 p-0 d-flex align-items-center justify-content-between">
+                        <div class="nav_brand">
+                            <h3 class="m-0"><a href="{% url 'home' %}">code yourself</a></h3>
+                        </div>
+                        <div id="toggle" class="toggle d-inline-block d-lg-none">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                    </div>
+                    <div id='content' class="col-12 col-md-9 p-0 toggle_content nav_content pt-3 pt-md-0">
+                        <ul id="ul" class="d-flex flex-column flex-lg-row justify-content-end my-0 p-0 align-items-center">
+                            <a href="{% url 'home' %}" class="py-1 py-md-0"><li>Home</li></a>
+                            <a href="{% url 'courses' %}" class="py-1 py-md-0"><li>Courses</li></a><a href="{% url 'about' %}" class="py-1 py-md-0"><li>About</li></a>
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'profile' %}" class="py-1 py-md-0"><li>Profile</li></a>
+                                <a href="{% url 'cart' %}" class="py-1 py-md-0"><li>Cart</li></a>
+                                <a href="{% url 'mylearning' %}" class="py-1 py-md-0"><li>My Learning</li></a>
+                                <a href="{% url 'instructor_home_page' %}" class="py-1 py-md-0"><li>Teach On Code Yourself</li></a>
+                                
+                                <!-- {% if verify.status != "Rejected" and verify %} -->
+                                <!-- {% endif %} -->
+                                <a href="{% url 'logout' %}" class="py-1 py-md-0" id="logout"><li>Logout</li></a>
+                            {% else %}
+                                <a href="{% url 'registration' %}" class="py-1 py-md-0"><li>Register</li></a>
+                                <a href="{% url 'login' %}" class="py-1 py-md-0" id="login"><li>Login</li></a>
+                            {% endif %}
+                            <!-- <li class="py-1 py-md-0 mx-2"><button>Register</button></li> -->
+                            <!-- <li class="py-1 py-md-0 mx-2"><button id="login">login</button></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock Navbar %}
+
+
+    {% block Content %}
+    {% endblock Content %}
+
+    {% block Footer %}
+        <footer class="container-fluid bg_black text-white pt-4 pb-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-4 p-4">
+                        <div class="nav_brand">
+                            <h3 class="m-0 my-2"><a class="text-white" href="{% url 'home' %}">code yourself</a></h3>
+                            <h5 class="mt-4 text-start text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis magni molestias qui sed suscipit facilis? Placeat velit exercitationem ut neque? Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4 p-4">
+                        <h3>Important Links</h3>
+                        <ul class="px-0 mt-4">
+                            <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
+                            <li><a href="{% url 'courses' %}" class="text-white">Course</a></li>
+                            <li><a href="{% url 'about' %}" class="text-white">About</a></li>
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'mylearning' %}" class="text-white">My Learning</a></li>
+                                <li><a href="{% url 'profile' %}" class="text-white">Profile</a></li>
+                            {% else %}
+                                <li><a href="{% url 'registration' %}" class="text-white">Register</a></li>
+                                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'cart' %}" class="text-white">Cart</a></li> 
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4 p-4">
+                        <h3>Contact Info</h3>
+                        <div class="mt-4">
+                            <div class="d-flex mt-2">
+                                <div class="contact_icons">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact_detail">
+                                    <h4>Location :- </h4>
+                                    <h5 class="text-secondary">1344 Joes Road, Kinderhook, NY, New York 12106.</h5>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="contact_icons">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact_detail">
+                                    <h4>Phone :- </h4>
+                                    <h5 class="text-secondary">+(91) 7935272739</h5>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="contact_icons">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                                <div class="contact_detail">
+                                    <h4>Email :- </h4>
+                                    <h5 class="text-secondary">codeyourself@gmail.com</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="text-center">All Rights Reserved &copy; 2021</h5>
+        </footer>
+    {% endblock Footer %}
+</body>
+
+{% block Prescript %}
+    <script src="https://kit.fontawesome.com/9970e863a8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+    
+    <script>
+        var toggle = document.getElementById("toggle");
+        var content = document.getElementById("content");
+        var message = document.querySelector(".message");
+
+        toggle.addEventListener('click', () => {
+            content.classList.toggle('toggle_content');
+        })
+
+        const moveRight = () => {
+            message.classList.add("move_right");
+            setTimeout(() => {
+                message.classList.add("d-none");
+            }, 1000)
+        }
+
+        if (message) {
+            setTimeout(moveRight , 5000);
+        };
+
+        message.addEventListener("click", moveRight);
+
+    </script>
+{% endblock Prescript %}
+{% block CustomScript %}{% endblock CustomScript %}
+
+</html>

@@ -1,0 +1,69 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block CustomStyles %}
+    <link rel="stylesheet" href="{% static 'css/instructor_home_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+{% endblock CustomStyles %}
+
+{% block Content %}
+    <div style="width: 100%">
+        <img src="{% static 'images/teach.jpg' %}" class="teaching_banner" alt="Banner">
+    </div>
+
+    <div class="w-100 mt-5 mx-0 px-0">
+        <h2 class="text-center fw-bold mb-4">So many reasons to start</h2>
+        <div class="row w-100">
+            <div class="col-12 col-md-6 col-lg-4 px-0 mx-0 text-center">
+                <h4 class="fw-bold text_orange">Inspire learners</h4>
+                <p class="px-3 pb-5 fs-5">Teach what you know and help learners explore their interests, gain new skills, and advance their careers.</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 px-0 mx-0 text-center">
+                <h4 class="fw-bold text_orange">Teach your way</h4>
+                <p class="px-3 pb-5 fs-5">Publish the course you want, in the way you want, and always have of control your own content.</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 px-0 mx-0 text-center">
+                <h4 class="fw-bold text_orange">Get rewarded</h4>
+                <p class="px-3 pb-5 fs-5">Expand your professional network, build your expertise, and earn money on each paid enrollment.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg_orange py-5 text-white mt-0">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{user}}</h1>
+                    <h4 class="fw-bold">Students</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{all_course}}</h1>
+                    <h4 class="fw-bold">Courses</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{enrollment}}</h1>
+                    <h4 class="fw-bold">Enrollments</h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 our_success text-center">
+                    <div class="success_inner">
+                        <h1 class="fw-bold">{{reviews}}</h1>
+                    <h4 class="fw-bold">Reviews</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid my-5 text-center">
+        <h2 class="fw-bold">Become an instructor today</h2>
+        <h5 class="mb-4 pb-3">Join the world’s largest online learning marketplace.</h5>
+        <a href="{% url 'instructor_form' %}" class="button_reverse">Get Started</a>
+    </div>
+
+{% endblock Content %}

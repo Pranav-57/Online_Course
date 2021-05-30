@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Video Slider</title>
+</head>
+<body>
+    <section>
+        <video id="slider" autoplay muted loop>
+            <source src="production ID_4367643.mp4" type="video/mp4"> 
+        </video>
+        <ul class="navigation">
+            <li>
+                <video class="video_navigation" autoplay muted loop>
+                    <source src="video.mp4" type="video/mp4"> 
+                </video>
+            </li>
+            <li>
+                <video class="video_navigation" autoplay muted loop>
+                    <source src="Pexels Videos 1779202.mp4" type="video/mp4"> 
+                </video>
+            </li>
+            <li>
+                <video class="video_navigation" autoplay muted loop>
+                    <source src="Pexels Videos 2519660.mp4" type="video/mp4"> 
+                </video>
+            </li>
+            <li>
+                <video class="video_navigation" autoplay muted loop>
+                    <source src="production ID_4367643.mp4" type="video/mp4"> 
+                </video>
+            </li>
+        </ul>
+    </section>
+</body>
+
+<script>
+    document.querySelector(".navigation").addEventListener('click' , e => {
+        var slider = document.getElementById("slider").src = e.target.childNodes[1].src
+        console.log(e.target.childNodes[1].src);
+    })
+</script>
+
+</html>
